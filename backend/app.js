@@ -6,9 +6,9 @@ const app = express();
 
 
 app.use(cors())
-app.get('/video', (req, res) => {
-    res.sendFile('assets/video1.mp4', { root: __dirname });
-});
+// app.get('/video', (req, res) => {
+//     res.sendFile('assets/video1.mp4', { root: __dirname });
+// });
 
 //videos route
 const Videos = require('./routes/Videos')

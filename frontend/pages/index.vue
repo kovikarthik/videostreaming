@@ -20,7 +20,7 @@ head: {
     },
     async fetch() {
       this.videos = await fetch(
-        'http://localhost:8080/videos'
+        'https://streaming-2dc2c.el.r.appspot.com/videos'
       ).then(res => res.json())
     }
 }
