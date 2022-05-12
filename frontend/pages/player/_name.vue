@@ -1,8 +1,8 @@
 <template>
     <div class="player">
         <video controls autoPlay crossOrigin="anonymous">
-            <source :src="`http://localhost:5000/videos/video/${vidName}`" type="video/mp4">
-            <track style="display:flex;align-items:center;justify-content:center" label="English" kind="captions" srcLang="en" :src="`http://localhost:5000/videos/video/${vidName}/caption`" default>
+            <source :src="`http://localhost:8080/videos/video/${vidName}`" type="video/mp4">
+            <track style="display:flex;align-items:center;justify-content:center" label="English" kind="captions" srcLang="en" :src="`http://localhost:8080/videos/video/${vidName}/caption`" default>
         </video>
     </div>
 </template>

@@ -14,7 +14,7 @@ app.get('/video', (req, res) => {
 const Videos = require('./routes/Videos')
 app.use('/videos', Videos)
 
-app.listen(5000, () => {
-    console.log('Listening on port 5000!')
+app.listen(8080, () => {
+    console.log('Listening on port 8080!')
 }); 
 

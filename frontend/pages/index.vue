@@ -20,7 +20,7 @@ head: {
     },
     async fetch() {
       this.videos = await fetch(
-        'http://localhost:5000/videos'
+        'http://localhost:8080/videos'
       ).then(res => res.json())
     }
 }
