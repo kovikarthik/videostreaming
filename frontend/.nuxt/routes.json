@@ -3,14 +3,12 @@
     "name": "player-name",
     "path": "/player/:name?",
     "component": "C:\\\\Users\\\\YRT\\\\Documents\\\\videostreaming\\\\frontend\\\\pages\\\\player\\\\_name.vue",
-    "chunkName": "pages/player/_name",
-    "_name": "_39197924"
+    "chunkName": "pages/player/_name"
   },
   {
     "name": "index",
     "path": "/",
     "component": "C:\\\\Users\\\\YRT\\\\Documents\\\\videostreaming\\\\frontend\\\\pages\\\\index.vue",
-    "chunkName": "pages/index",
-    "_name": "_121b9ed7"
+    "chunkName": "pages/index"
   }
 ]

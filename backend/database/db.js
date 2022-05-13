@@ -1,5 +1,5 @@
 
-const firebase = require('firebase')
+const firebase = require('firebase-admin')
 
 const firebaseConfig = {
   apiKey: "AIzaSyCnS-LjOxOFh86JDqixyYhgetjb5m0CLSo",
@@ -14,4 +14,6 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig)
 const db = firebase.firestore()
 const posts = db.collection("posts")
+
+
 module.exports = posts

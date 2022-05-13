@@ -17,8 +17,20 @@ router.get('/', (req, res) => {
 
 //streaming route
 
+const videospost = require("../database/db")
+let data=[]
+videospost.get().then(data1=>{
+    data1.forEach((d,i)=>{
+        // console.log(d.data())
+        data.push(d.data())
+    })
+  }
+)
+
 router.get('/video/:id', (req, res) => {
-    const videoPath = `assets/${req.params.id}.mp4`;
+    var posts = data[Math.floor(Math.random()*data.length)];
+    console.log(posts.url,"posts.url")
+    const videoPath = posts.url;
     const videoStat = fs.statSync(videoPath);
     const fileSize = videoStat.size;
     const videoRange = req.headers.range;

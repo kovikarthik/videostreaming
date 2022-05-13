@@ -1,8 +1,4 @@
-const videos = require("./database/db")
 
-const data = videos.get()
-const data1 = data.docs.map((d)=>d.data())
-console.log("data1",data1)
 
 const allVideos = [
     {
