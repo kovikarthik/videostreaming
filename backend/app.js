@@ -11,7 +11,7 @@ app.use(cors())
 // });
 
 //videos route
-const Videos = require('./routes/Videos')
+const Videos = require('./routes/Videos.js')
 app.use('/videos', Videos)
 
 app.listen(8080, () => {

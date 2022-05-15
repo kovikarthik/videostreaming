@@ -15,5 +15,14 @@ firebase.initializeApp(firebaseConfig)
 const db = firebase.firestore()
 const posts = db.collection("posts")
 
+let data = []
+posts.get().then(data1 => {
+    data1.forEach((d, i) => {
+        console.log(d.data())
+        data.push(d.data())
+        // console.log(data,"data")
+    })
+}
+)
 
-module.exports = posts
+module.exports ={posts,data}
