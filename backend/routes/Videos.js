@@ -29,17 +29,19 @@ router.get('/', (req, res) => {
 
 
 
-router.get('/video/:id', async (req, res) => {
+router.get('/video_present/:id', async (req, res) => {
     // console.log("req.header", await req.headers)
     var posts = database.data[Math.floor(Math.random() * database.data.length)];
     console.log(posts, "posts")
-    // posts.url="https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4"
+    posts.url="https://firebasestorage.googleapis.com/v0/b/streaming-2dc2c.appspot.com/o/Video%20files%2FDemo%20video.mp4?alt=media&token=ded0e22f-4606-4daf-a567-ce2e87ba4432"
     const videoPath = posts.url;
     var res1;
     await (async () => {
         try {
             console.log("hello");
-            await gotScraping.get(posts.url).then(a => {
+            // await gotScraping.get(posts.url).then(a => {
+            // await superagent.get(posts.url).then(a => {
+            await got.get(posts.url).then(a => {
                 // console.log(a,"a");
                 res1 = a
             });
@@ -67,11 +69,12 @@ router.get('/video/:id', async (req, res) => {
         console.log("head")
         console.log(head, "head")
         await res.writeHead(206, head);
-        const file = await https.get(videoPath, { start, end });
+        // const file = await https.get(videoPath, { start, end });
         // console.log(file, "file")
-        // const stream = await got.stream(videoPath, { start, end })
-        // stream.pipe(res)
-        file.pipe(res)
+        const stream = await got.stream(videoPath, { start, end })
+        // console.log(stream,"stream")
+        stream.pipe(res)
+        // file.pipe(res)
     }
     else {
         console.log("elseeeeeeeeeeeeeeeeeeeeeeee")
@@ -363,6 +366,37 @@ router.get('/video2/:id', async (req, res) => {
 // });
 
 // captions route
+router.get('/video/:id', (req, res) => {
+    const videoPath = `assets/${req.params.id}.mp4`;
+    const videoStat = fs.statSync(videoPath);
+    const fileSize = videoStat.size;
+    const videoRange = req.headers.range;
+    console.log(req.headers, "videorange")
+    if (videoRange) {
+        const chunksize = 10 ** 6;//1mb
+        const start = Number(videoRange.replace(/\D/g, ""))
+        const end = Math.min(start + chunksize, fileSize - 1)
+        const contentlength = (end - start) + 1;
+        console.log(contentlength, "contentlength", end, start)
+        const file = fs.createReadStream(videoPath, { start, end });
+        const head = {
+            'Content-Range': `bytes ${start}-${end}/${fileSize}`,
+            'Accept-Ranges': 'bytes',
+            'Content-Length': contentlength,
+            'Content-Type': 'video/mp4',
+        };
+        res.writeHead(206, head);
+        file.pipe(res);
+    } else {
+        const head = {
+            'Content-Length': fileSize,
+            'Content-Type': 'video/mp4',
+        };
+        res.writeHead(200, head);
+        fs.createReadStream(videoPath).pipe(res);
+    }
+});
+
 const captionPath = '../backend'
 router.get('/video/:id/caption', (req, res) => { console.log(`assets/captions/${req.params.id}.vtt`); res.sendFile(`assets/captions/${req.params.id}.vtt`, { root: captionPath }) });
 module.exports = router;
